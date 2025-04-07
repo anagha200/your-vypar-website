@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /private/
+Allow: / 
+Sitemap: https://yourvypar.in/sitemap.xml

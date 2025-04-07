@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow"> <!-- Tells search engines to index and follow links -->
+    <meta name="description" content="YourVypar is a trusted business solutions provider offering web design, tracking applications, accounting, GST/ITR services, and more.">
+    <meta property="og:title" content="YourVypar - Business Solutions">
+    <meta property="og:description" content="YourVypar is a trusted business solutions provider offering web design, tracking applications, accounting, GST/ITR services, and more.">
+    <meta property="og:image" content="img/yourvypar.jpg"> <!-- Ensure this is the correct image URL -->
+    <meta property="og:url" content="https://yourvypar.in">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="YourVypar - Business Solutions">
+    <meta name="twitter:description" content="YourVypar offers web design, tracking, accounting, and business solutions.">
+    <meta name="twitter:image" content="img/yourvypar.jpg">
+    <link rel="canonical" href="https://yourvypar.in">
+    <title>YourVypar - Business Solutions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/yourvypar-favicon.ico">
+
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+            <img src="img/yourvypar.jpg" alt="YourVypar Logo">
+        </a>
+            <ul>
+                <li><a href="testing.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="aboutus.html">About</a></li>
+                <li><a href="contactus.html">Contact</a></li>
+            </ul>
+            <span class="menu-toggle">&#9776;</span>
+        </nav>
+    </header>
+    <section class="hero">
+    <div class="video-wrapper">
+        <video autoplay muted loop id="hero-video">
+            <source src="img/banner3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="hero-content">
+        <a href="services.html" class="btn">Explore Our Services</a>
+        <a href="contactus.html" class="btn secondary">Get a Free Consultation</a>
+    </div>
+</section>
+
+    <section class="about">
+    <div class="container">
+        <h2>Get an Awesome Website at the Best Price</h2>
+        <h3>Your Trusted Web Design Company</h3>
+        <p>At YourVypar, we take pride in designing and developing visually stunning, highly functional, and user-friendly websites tailored to your business goals. Leveraging the latest web technologies and industry best practices, our expert team ensures that your website not only looks great but also delivers seamless performance across all devices. Whether you're a startup looking for an affordable online presence or an established enterprise in need of advanced web solutions, we have the expertise to craft a website that enhances your brand identity, engages your audience, and drives business growth. Our services cater to a diverse range of industries, ensuring customized solutions that meet the unique needs of every business.</p>
+        <p><b>If you are looking for a reliable web design partner, YourVypar is committed to delivering exceptional services with our dedicated team of expert designers.</b></p>
+    </div>
+</section>
+
+
+    <section class="services">
+        <h2>What We Offer</h2>
+        <p></p>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="service-box">
+                    <h3>Tracking Application</h3>
+                    <p>Real-time tracking solutions for your business.</p>
+                </div>
+                <div class="service-box">
+                    <h3>Billing & Accounting</h3>
+                    <p>Automated invoicing and financial management.</p>
+                </div>
+                <div class="service-box">
+                    <h3>GST, ITR & Company Registration</h3>
+                    <p>Effortless tax compliance and business setup.</p>
+                </div>
+                <div class="service-box">
+                    <h3>Restaurant Software</h3>
+                    <p>Efficient order and inventory management.</p>
+                </div>
+                <div class="service-box">
+                    <h3>Loan & Insurance Providers</h3>
+                    <p>Secure and hassle-free financial solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <h2>Get In Touch With Us</h2>
+        <p>We’re here to help you find your solution or answer any questions you might have! Whether youʼre ready to buy, rent, or just want more information, our friendly team is eager to assist you. Reach out today, and let’s start your exciting journey together!</p>
+        <form class="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+</body>
+</html>
+
+</body>
+
+<script>
+    // Load footer dynamically
+    fetch("footer.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+
+            // Show footer when the user scrolls to the bottom
+            window.addEventListener("scroll", function () {
+                let footer = document.getElementById("dynamic-footer");
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    footer.style.display = "block"; // Show footer when at bottom
+                } else {
+                    footer.style.display = "none"; // Hide footer when not at bottom
+                }
+            });
+        });
+</script>
+<script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+    document.querySelector('.navbar ul').classList.toggle('show');
+});
+
+    </script>
+
+</html>

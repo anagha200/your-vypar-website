@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/tracking-application.css">
+    <title>Tracking Application</title>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="img/Your.png" alt="YourVypar Logo">
+        <nav>
+            <ul>
+                <li><a href="testing.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Sections Container -->
+    <div class="sections-container">
+
+        <!-- Section 1: Registration -->
+        <section>
+            <h2>Register Your Details</h2>
+            <div class="carousel">
+                <div class="carousel-images" id="registerCarousel">
+                    <img src="img/signup.png" alt="Registration Step 1">
+                    <img src="img/signup-designation.png" alt="Registration Step 2">
+                    <img src="img/email.png" alt="Registration Step 3">
+                </div>
+            </div>
+            <p>Register your details to get started with the application.This will allow you to personalize your experience and begin using the system.</p>
+        </section>
+
+        <!-- Section 2: Login -->
+        <section>
+            <h2>Employee Login</h2>
+            <div class="carousel">
+                <div class="carousel-images" id="loginCarousel">
+                    <img src="img/login.png" alt="Login Step 1">
+                    <img src="img/welcome.png" alt="Login Step 2">
+                    <img src="img/change-password.png" alt="Login Step 3">
+                </div>
+            </div>
+            <p>Login to access your dashboard and manage your activities.Use your credentials to securely sign in and track your work progress.</p>
+        </section>
+
+        <!-- Section 3: Track Work Hours -->
+        <section>
+            <h3>Track Your Work Hours</h3>
+            <div class="carousel">
+                <div class="carousel-images" id="hoursCarousel">
+                    <img src="img/welcome.png" alt="Work Hours 1">
+                    <img src="img/checkin.png" alt="Work Hours 2">
+                </div>
+            </div>
+            <p>Keep track of your work hours efficiently using the application. Monitor your attendance and ensure accurate reporting for payroll and performance analysis.</p>
+        </section>
+
+        <!-- Section 4: Customer Leads -->
+        <section>
+            <h3>Create Customer Leads</h3>
+            <div class="carousel">
+                <div class="carousel-images" id="leadsCarousel">
+                    <img src="img/customer-details1.png" alt="Lead 1">
+                    <img src="img/customer-details2.png" alt="Lead 2">
+                    <img src="img/customer-details3.png" alt="Lead 3">
+                </div>
+            </div>
+            <p>Generate and manage customer leads directly within the application. This helps streamline your workflow, ensuring that you never miss an opportunity to engage with potential clients.</p>
+        </section>
+
+        <!-- Section 5: Leave Requests -->
+        <section>
+            <h3>Request Time Off</h3>
+            <div class="carousel">
+                <div class="carousel-images" id="leaveCarousel">
+                    <img src="img/leave-application1.png" alt="Leave 1">
+                    <img src="img/leave-application2.png" alt="Leave 2">
+                    <img src="img/leave-application3.png" alt="Leave 3">
+                    <img src="img/leave-application4.png" alt="Leave 4">
+                </div>
+            </div>
+            <p>Submit your leave requests and monitor the approval process. The leave section ensures smooth coordination with management and helps you track the status of your requests.</p>
+        </section>
+
+    </div>
+
+    <!-- Register Button -->
+    <div class="register-button">
+        <button onclick="window.location.href='registration.html'">Register</button>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 YourVypar | Contact Us: +91 8152960673</p>
+    </footer>
+
+    <script>
+        function startCarousel(carouselId, interval = 3000) {
+            const carousel = document.getElementById(carouselId);
+            const images = carousel.children;
+            let index = 0;
+
+            setInterval(() => {
+                index = (index + 1) % images.length;
+                carousel.style.transform = `translateX(-${index * 100}%)`;
+            }, interval);
+        }
+
+        startCarousel('registerCarousel');
+        startCarousel('loginCarousel');
+        startCarousel('hoursCarousel');
+        startCarousel('leadsCarousel');
+        startCarousel('leaveCarousel');
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>YourVypar - Customer details portal</title>
+
+        <!-- link css file --------------------------------------->
+        <link rel="stylesheet" href="css/customer-details.css">
+        <link rel="icon" href="img/Your.png" type="image/png">
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
+            rel="stylesheet">
+
+        <!-- bootstrap css link ---------------------------------------->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+        <!-- bootstrap icon cdn ------------------------------------------>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+            integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- font Awesome link ----------------------------------->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Navbar start ---------------------------->
+        <div class="navbar sticky-top">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><img src="img/Your.png" alt=""></a>
+                </div>
+                <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+                <ul>
+                    <li><a href="welcome.html" class="cta-button" target="_blank">Previous</a></li>
+                    <li><a href="employee-login.html" class="cta-button" target="_blank">LogOut</a></li>
+                </ul>
+            </div>
+        </div>
+        <body style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
+        <!-- navbar end ------------------------------>
+
+        <div class="container my-5">
+            <div class="row">
+                <div class="offset-md-3 col-md-6">
+                    <h3 style="color:#fb6852" class="mt-3">Customer Details</h3>
+                    <div class="card mt-4">
+                        <div class="container my-4">
+                            <form id="customerForm" method="POST" action="submit_customer.php">
+                                <input type="hidden" name="employee_id" value="<?php echo $_SESSION['employee_id']; ?>">
+                                <label for="leadType">Lead Type:</label>
+                                <select id="leadType" name="leadType" class="form-control" required>
+                                    <option value="" disabled selected>Select Lead Type</option>
+                                    <option value="new">New</option>
+                                    <option value="existing">Existing</option>
+                                </select>
+
+                                <label for="salesType">Sales Type:</label>
+                                <select id="salesType" name="salesType" class="form-control" required>
+                                    <option value="" disabled selected>Select Sales Type</option>
+                                    <option value="hot">Hot</option>
+                                    <option value="warm">Warm</option>
+                                    <option value="cold">Cold</option>
+                                    <option value="closed">Closed</option>
+                                </select>
+
+                                <input type="text" id="name" name="name" class="form-control"
+                                    placeholder="Enter customer name" required>
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="Enter email address" required>
+                                <input type="tel" id="phone" name="phone" class="form-control"
+                                    placeholder="Enter phone number" required>
+                                <input type="text" id="address" name="address" class="form-control"
+                                    placeholder="Enter address">
+                                <textarea id="remarks" name="remarks" rows="4" class="form-control"
+                                    placeholder="Enter any remarks"></textarea>
+
+                                <div id="selfie-container">
+                                    <button type="button" id="start-camera">Start Camera</button>
+                                    <video id="video" autoplay></video>
+                                    <button type="button" id="capture-selfie" class="mt-3">Capture Selfie</button>
+                                    <canvas id="canvas"></canvas>
+                                </div>
+
+                                <!-- Hidden input for the selfie data -->
+                                <input type="hidden" name="selfieData">
+                                <!-- Hidden input for the map link -->
+                                <input type="hidden" name="mapLink">
+                                <div class="offset-md-4 col-md-4">
+                                    <button type="submit" style="width: 50%;" class="submit-btn w-100">Submit</button>
+                                </div>
+                            </form>
+                            <a id="mapLinkDisplay" href="#" target="_blank" style="display:none;">View on Google Maps</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            const leadTypeSelect = document.getElementById('leadType');
+            const customerForm = document.getElementById('customerForm');
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const captureSelfieButton = document.getElementById('capture-selfie');
+            const startCameraButton = document.getElementById('start-camera');
+            const mapLinkDisplay = document.getElementById('mapLinkDisplay');
+
+            let videoStream;
+            let selfieDataInput = document.querySelector('input[name="selfieData"]');
+            let mapLinkInput = document.querySelector('input[name="mapLink"]');
+
+            leadTypeSelect.addEventListener('change', function () {
+                if (this.value === 'existing') {
+                    document.getElementById('name').addEventListener('input', function () {
+                        if (this.value.length > 2) {
+                            fetchCustomerDetails(this.value);
+                        }
+                    });
+                }
+            });
+
+            function fetchCustomerDetails(name) {
+                fetch('fetch_customer.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `name=${encodeURIComponent(name)}`,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                             populateCustomerDetails(data);
+                        } else {
+                            clearCustomerFields();
+                            alert('Error: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching customer details:', error));
+            }
+
+            function populateCustomerDetails(data) {
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('phone').value = data.phone || '';
+                document.getElementById('address').value = data.address || '';
+                document.getElementById('remarks').value = data.remarks || '';
+            }
+
+            function clearCustomerFields() {
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('address').value = '';
+                document.getElementById('remarks').value = '';
+            }
+
+            // Get location and fetch address
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(position => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        fetchAddress(lat, lng);
+                    });
+                } else {
+                    alert('Geolocation is not supported by your browser.');
+                }
+            }
+
+            function fetchAddress(lat, lng) {
+                const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.address) {
+                            const fullAddress = formatAddress(data.address);
+                            document.getElementById('address').value = fullAddress;
+                        }
+                        mapLinkInput.value = `https://www.google.com/maps?q=${lat},${lng}`; // Store map link
+                        mapLinkDisplay.href = mapLinkInput.value; // Update map link display
+                        mapLinkDisplay.style.display = 'block'; // Show map link display
+                    })
+                    .catch(error => console.error('Error fetching address:', error));
+            }
+
+            function formatAddress(address) {
+                let formattedAddress = '';
+                if (address.road) formattedAddress += address.road + ', ';
+                if (address.city) formattedAddress += address.city + ', ';
+                if (address.state) formattedAddress += address.state + ', ';
+                if (address.country) formattedAddress += address.country;
+                return formattedAddress.trim();
+            }
+
+            // Start Camera
+            startCameraButton.addEventListener('click', async () => {
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = videoStream;
+                    video.style.display = 'block';
+                } else {
+                    alert('Your browser does not support camera access.');
+                }
+            });
+
+            // Capture Selfie
+            captureSelfieButton.addEventListener('click', () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                selfieDataInput.value = canvas.toDataURL('image/png');
+                videoStream.getTracks().forEach(track => track.stop());
+                video.style.display = 'none';
+                alert('Selfie captured sucessfully!');
+            });
+
+            // Get user's location on page load
+            window.onload = getLocation;
+
+            // Before submitting the form, populate the hidden input fields
+            customerForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const formData = new FormData(customerForm);
+                fetch(customerForm.action, {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data); 
+                        alert('Details submitted sucessfully');
+                        window.location.href = "welcome.html"; // Redirect to welcome.html
+                    })
+                    .catch(error => console.error('Error submitting form:', error));
+                mapLinkInput.value = mapLinkInput.value; // Ensure mapLink is populated
+            });
+        </script>
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-lH2D5bZfI6U5G5iLZm2nb5jHM5B5Y9I5nU9f2p5V6C/U7hm5+kfTnF4T1sIRd/E5" crossorigin="anonymous">
+    </script>
+    </body>
+
+    </html>

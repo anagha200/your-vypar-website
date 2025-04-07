@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Description</title>
+    <style>
+        /* Styles same as original code */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0d47a1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #ffffff;
+        }
+
+        header img {
+            height: 100px;
+            max-width: 100%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #81c784;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 800px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        .plan-description {
+            margin: 20px 0;
+        }
+
+        .plan-description h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .plan-description p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .plan-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1b5e20;
+            margin-top: 5px;
+        }
+
+        .plan-description button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #0d47a1;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .plan-description button:hover {
+            background:#0d47a1 ;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #0d47a1;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #freeTrialMessage {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #d32f2f;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="img/Your.png" alt="YourVypar Logo">
+        <nav>
+            <ul>
+                <li><a href="testing.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <div class="container">
+            <h1>Choose Your Plan</h1>
+
+            <div class="plan-description">
+                <h2>Dynamic Employee Pricing</h2>
+                <p>Enter the number of employees to calculate the monthly cost:</p>
+                <input type="number" id="employeeCount" placeholder="Enter number of employees" min="1" style="padding: 5px;">
+                <p class="plan-price" id="dynamicPrice">Total Price: ₹0/month</p>
+                <button onclick="calculateDynamicPrice()">Calculate Price</button>
+            </div>
+
+            <p id="freeTrialMessage"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 YourVypar | Contact Us: +91 8152960673</p>
+    </footer>
+
+    <script>
+        // Store and Retrieve User Details (Simulated Registration)
+        function registerUser(name, phone, email) {
+            const userDetails = { name, phone, email };
+            localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        }
+
+        function getUserDetails() {
+            const storedDetails = localStorage.getItem('userDetails');
+            return storedDetails ? JSON.parse(storedDetails) : null;
+        }
+
+        function calculateDynamicPrice() {
+            const employeeCount = parseInt(document.getElementById('employeeCount').value, 10);
+            const basePricePerEmployee = 199; // Base price per employee
+            const gstRate = 0.18; // GST rate of 18%
+
+            if (!isNaN(employeeCount) && employeeCount > 0) {
+                const totalBasePrice = employeeCount * basePricePerEmployee;
+                const gstAmount = totalBasePrice * gstRate;
+                const totalPrice = totalBasePrice + gstAmount;
+
+                document.getElementById('dynamicPrice').innerText = `Total Price: ₹${totalPrice.toFixed(2)}/month`;
+            } else {
+                alert('Please enter a valid number of employees.');
+            }
+        }
+
+        function startFreeTrial() {
+            const messageElement = document.getElementById('freeTrialMessage');
+            const userDetails = getUserDetails();
+            
+            // Simulate user details input for comparison (this could come from a form in practice)
+            const enteredName = "John Doe";  // Example name from the form
+            const enteredPhone = "9876543210";  // Example phone number
+            const enteredEmail = "john@example.com";  // Example email
+
+            if (userDetails && 
+                userDetails.name === enteredName && 
+                userDetails.phone === enteredPhone && 
+                userDetails.email === enteredEmail) {
+                
+                messageElement.innerText = 'Free trial started!';
+
+                // Redirect to employee-signup.html after a brief delay
+                setTimeout(() => {
+                    window.location.href = 'free-trial.html';
+                }, 2000); // Redirect after 2 seconds to show the free trial started message
+
+            } else {
+                messageElement.innerText = 'Your details do not match our records. Please register first.';
+            }
+        }
+
+        // Simulate registration for testing purposes
+        // This would be replaced with actual registration logic (e.g., via a registration form)
+        registerUser("John Doe", "9876543210", "john@example.com");
+    </script>
+</body>
+</html>

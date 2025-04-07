@@ -1,0 +1,155 @@
+<!-- HTML & JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourVypar Employee Portal</title>
+    <link rel="stylesheet" href="css/employee-signup.css">
+    <link rel="icon" href="img/Your.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar sticky-top">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/Your.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SignUp Form Section -->
+    <div class="container mt-5 employee_login">
+        <div class="row">
+            <h2 class="text-center" style="color:#fb6852">Employee Signup</h2>
+        </div>
+        <div class="row mt-4">
+            <div class="offset-md-3 col-md-6">
+                <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="border-radius: 20px;">
+                    <div class="container my-5">
+                        <form id="addEmployeeForm" method="POST">
+                            <div class="form-group mb-3">
+                                <input type="text" name="employeeName" id="name" class="form-control" placeholder="Enter Your Full Name" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email Address" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="input-group">
+                                 <select class="form-control" name="countryCode" id="countryCode" style="max-width: 100px;">
+                                 <option value="91" selected>+91</option>
+                                 <option value="1">+1</option>
+                                 <option value="44">+44</option>
+                                 <option value="61">+61</option>
+            <!-- Add more country codes as needed -->
+                               </select>
+                                <input type="number" name="contactNumber" id="contactNumber" class="form-control" placeholder="Enter Your Contact Number" required>
+                            </div>
+                            <small id="numberError" class="text-danger d-none">Please enter a valid 10-digit contact number.</small>
+</div>
+                            <div class="form-group mb-3">
+                                <select class="form-control" name="designation" id="designation" required>
+                                    <option value="">Select your designation</option>
+                                    <option value="Regional / Zonal sales Manager">Regional / Zonal sales Manager</option>
+                                    <option value="State Head">State Head</option>
+                                    <option value="Cluster Head">Cluster Head</option>
+                                    <option value="Area Sales Manager">Area Sales Manager</option>
+                                    <option value="Territory Sales Manager">Territory Sales Manager</option>
+                                    <option value="Territory Sales Executive">Territory Sales Executive</option>
+                                    <option value="Full Stack Developer">Full Stack Developer</option>
+                                    <option value="Backend Developer">Backend Developer</option>
+                                    <option value="HR Manager">HR Manager</option>
+                                    <option value="Web Developer">Web Developer</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+                        </form>
+                        
+                        <!-- Response Message Div -->
+                        <div id="responseMessage" class="mt-3"></div>
+                        
+                        <!-- Next Button (Hidden Initially) -->
+                        <button id="nextButton" class="btn btn-secondary mt-3 w-100" style="display:none;">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    // Event listener for form submission
+    document.getElementById('addEmployeeForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const contactNumber = document.getElementById('contactNumber').value.trim(); // Get the contact number value
+        const numberError = document.getElementById('numberError'); // Error message element
+
+        // Validate if the contact number is exactly 10 digits and numeric
+        if (contactNumber.length !== 10 || isNaN(contactNumber)) {
+            numberError.textContent = "Please enter a valid 10-digit contact number.";
+            numberError.classList.remove('d-none'); // Show the error message
+            return; // Stop execution if validation fails
+        } else {
+            numberError.classList.add('d-none'); // Hide the error message if the number is valid
+        }
+
+        const formData = new FormData(this); // Gather form data
+
+        // Send form data to the server using fetch
+        fetch('employee-signup.php', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json(); // Parse JSON response
+            })
+            .then(data => {
+                const responseMessage = document.getElementById('responseMessage');
+                const nextButton = document.getElementById('nextButton'); // Next button element
+
+                if (data.success) {
+                    // Show success message
+                    responseMessage.innerHTML = `
+                        <div class="alert alert-success" role="alert">
+                            Employee added successfully!<br>
+                            <strong>Employee ID and password have been sent to your registered email address. Please check your inbox.</strong>
+                        </div>
+                    `;
+                    document.getElementById('addEmployeeForm').reset(); // Clear the form fields
+                    nextButton.style.display = 'block'; // Show the Next button
+                } else {
+                    // Show server-side error message
+                    responseMessage.innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            ${data.message || "There was an error adding the employee. Please try again later."}
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error("Error in form submission:", error);
+                const responseMessage = document.getElementById('responseMessage');
+                responseMessage.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        There was an error submitting the form. Please try again later.
+                    </div>
+                `;
+            });
+    });
+
+    // Event listener for the Next button click
+    document.getElementById('nextButton').addEventListener('click', function () {
+        window.location.href = 'employee-login.html'; // Redirect to the login page
+    });
+</script>
+
+
+
+</body>
+</html>

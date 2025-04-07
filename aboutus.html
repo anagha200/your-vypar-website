@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - YourVypar</title>
+     <link rel="stylesheet" href="css/aboutus.css">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+         <style>
+        /* Footer Styling */
+footer {
+    background-color: #004aad;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 1rem;
+    width: 100%;
+    position: relative; /* Ensures footer is placed naturally */
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: #ff5722;
+}
+
+/* Ensure the footer sticks to the bottom */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1; /* Pushes the footer to the bottom */
+}
+</style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">
+            <img src="img/yourvypar.jpg" alt="YourVypar Logo">
+        </a>
+            <ul>
+                <li><a href="testing.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="aboutus.html">About</a></li>
+                <li><a href="contactus.html">Contact</a></li>
+            </ul>
+            <span class="menu-toggle">&#9776;</span>
+        </nav>
+    </header>
+    <section><div class="main-content">
+        <h1>About Us</h1>
+        <p>At YourVypar, we are committed to empowering businesses with innovative solutions and personalized services. Our mission is to drive growth, enhance efficiency, and help our clients achieve their business goals.</p>
+        
+            <p>We are a team of passionate professionals dedicated to transforming businesses with cutting-edge strategies and customized solutions. Our expertise spans multiple industries, allowing us to deliver high-quality, tailored services.</p>
+            <p>✔ Business Consulting & Strategy Development<br>
+               ✔ Digital Transformation & Technology Solutions<br>
+               ✔ Marketing & Branding<br>
+               ✔ Financial Planning & Growth Strategies</p></section>
+       <div class="vision-mission-container">
+    <div class="vision">
+        <h1>Our Vision</h1>
+        <p>To be the leading partner for businesses worldwide, fostering growth, innovation, and sustainability. 
+        We envision a future where businesses, regardless of their size, have access to the resources and support 
+        they need to thrive.</p>
+    </div>
+    
+    <div class="mission">
+        <h1>Our Mission</h1>
+        <p>Our mission is to empower businesses with innovative solutions that drive growth, enhance efficiency, 
+        and foster long-term success. We are committed to leveraging cutting-edge technology and customer-centric 
+        strategies to help businesses thrive in the digital era.</p>
+    </div>
+</div>
+        <div class="values">
+            <h2><b>Our Values</b></h2>
+            <div><img src="img/values.jpg" alt="values"></div>
+            <p>1. <b>Integrity</b>: Transparency, honesty, and ethical business practices.<br>
+               2. <b>Innovation</b>: Exploring new ideas and technologies.<br>
+               3. <b>Customer-Centric Approach</b>: Prioritizing our clients’ needs.<br>
+               4. <b>Collaboration</b>: Fostering strong relationships.<br>
+               5. <b>Excellence</b>: Ensuring quality and impactful results.</p>
+        </div>
+
+       <section class="why-container">
+    <h2>Why Choose Us?</h2>
+    <div class="why-boxes">
+        <div class="why-box"><b>Tailored</b> – Customized services for your unique needs.</div>
+        <div class="why-box"><b>Expert Team</b> – Experienced professionals from various industries.</div>
+        <div class="why-box"><b>Technology-Driven Approach</b> – Leveraging the latest tools.</div>
+        <div class="why-box"><b>Customer-Focused Strategies</b> – Aligning with your vision.</div>
+        <div class="why-box"><b>Long-Term Support</b> – Partnering with businesses for ongoing success.</div>
+    </div>
+</section>
+</div>
+
+        
+    
+    
+    <footer id="dynamic-footer">
+    <div class="footer-content">
+        <p>📞 Phone: <strong>+91 8152960673</strong></p>
+        <p>📧 Email: <a href="mailto:support@yourvypar.in">support@yourvypar.in</a></p>
+        <p>&copy; 2025 YourVypar. All rights reserved.</p>
+    </div>
+</footer>
+</body>
+<script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.navbar ul').classList.toggle('show');
+        });
+    </script>
+</html>

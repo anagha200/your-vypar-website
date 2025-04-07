@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourVypar Employee Portal</title>
+    <!-- link css file -------------------------------------->
+    <link rel="stylesheet" href="css/employee-login.css">
+    <link rel="icon" href="img/YourVypar.png" type="image/png">
+
+    <!-- bootstrap css link ---------------------------------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- bootstrap icon cdn ------------------------------------------>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- font Awesome link ----------------------------------->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar start ---------------------------->
+    <div class="navbar sticky-top">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/Your.png" alt=""></a>
+            </div>
+            <div class="d-flex align-items-center">
+                <button id="logoutBtn" class="btn btn-outline-light">Logout</button>
+            </div>
+        </div>
+    </div>
+    <!-- navbar end ------------------------------>
+
+    <!-- check in and check out button start ----------------------->
+    <div class="container employee_login">
+        <div class="row">
+            <div class="offset-md-8 col-md-2">
+                <a href="change-password.html"><button id="changePasswordBtn" class="btn btn-outline-light w-100 chng-pass">Change
+                        Passsword</button></a>
+            </div>
+            <div class="col-md-2">
+                <a href="leave-application.html"><button id="applyLeaveBtn"
+                        class="btn btn-outline-light w-100 chng-pass">Apply for Leave</button></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-2 col-md-6">
+                <div class="card my-5">
+                    <div class="container my-5">
+                        <div class="row">
+                            <div class="offset-md-1 col-md-6">
+                                <h3 class="welcome-heading">Welcome!</h3>
+                            </div>
+                            <div class="offset-md-3 col-md-1">
+                                <a href="employee_table.html"><i class="bi bi-person-circle" title="My Profile"
+                                        style="font-size: 30px;"></i></a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="offset-md-2 col-md-4">
+                                <button id="checkInBtn" class="btn btn-success w-100 checkin_btn">Check in</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button id="checkOutBtn" class="btn btn-success w-100 checkout_btn">Check out</button>
+                            </div>
+                            <div class="offset-md-4 col-md-4" style="margin-top: -20px;">
+                                <button id="createLeadBtn" class="btn btn-success w-100 checkout_btn1">Create
+                                    lead</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="container">
+                                <div class="table-container mt-5" id="timeTable">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Check in Time</th>
+                                                <th>Check out Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="timeTableBody">
+                                            <tr style="height: 40px;">
+                                                <td id="currentDate">Loading...</td>
+                                                <td id="checkInTime">Loading...</td>
+                                                <td id="checkOutTime">Loading...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- <table class="table mt-5" id="timeTable">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Check In Time</th>
+                                            <th>Check Out Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="timeTableBody">
+                                        <tr style="height: 40px;">
+                                            <td id="currentDate"></td>
+                                            <td id="checkInTime"></td>
+                                            <td id="checkOutTime"></td>
+                                        </tr>
+                                    </tbody>
+                                </table> -->
+                            </div>
+                        </div>
+                        <div id="attendanceMessage" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Details Section -->
+            <div class="col-md-4">
+                <div class="card mt-5">
+                    <div class="container my-5">
+                        <h4 style="color: #fb6852;"><i class="bi bi-person-fill" style="color:#fb6852"></i>Profile</h4>
+                        <hr>
+                        <div>
+                            <p><strong>Employee ID:</strong> <span id="employeeId">Loading...</span></p>
+                            <p><strong>Name:</strong> <span id="employeeName">Loading...</span></p>
+                            <p><strong>Designation:</strong> <span id="employeeDesignation">Loading...</span></p>
+                            <p><strong>Contact No:</strong> <span id="contactNumber">Loading...</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- check in and check out button end ----------------------->
+
+    <script>
+        // Get references to the buttons and table cells
+        const checkInBtn = document.getElementById('checkInBtn');
+        const checkOutBtn = document.getElementById('checkOutBtn');
+        const createLeadBtn = document.getElementById('createLeadBtn');
+        const checkInTimeCell = document.getElementById('checkInTime');
+        const checkOutTimeCell = document.getElementById('checkOutTime');
+        const currentDateCell = document.getElementById('currentDate');
+        const attendanceMessage = document.getElementById('attendanceMessage');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const changePasswordBtn = document.getElementById('changePasswordBtn');
+
+        // Function to display messages
+        function displayMessage(message, type = 'success') {
+            attendanceMessage.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
+            setTimeout(() => { attendanceMessage.innerHTML = ''; }, 3000);
+        }
+
+        // Function to get the employee ID from sessionStorage
+        function getEmployeeId() {
+            return sessionStorage.getItem('employee_id');
+        }
+
+        // Function to handle logout
+        logoutBtn.addEventListener('click', function () {
+            sessionStorage.removeItem('employee_id');
+            sessionStorage.removeItem('employee_name');
+            sessionStorage.removeItem('designation');
+            sessionStorage.removeItem('contact_number');
+            window.location.href = 'employee-login.html'; // Redirect to login page
+        });
+
+        // Function to get current date and time
+        function getCurrentDateTime() {
+            const now = new Date();
+            const date = now.toISOString().split('T')[0];  // YYYY-MM-DD format
+            const time = now.toTimeString().split(' ')[0];  // HH:MM:SS format
+            return { date, time };
+        }
+
+        // Function to fetch the latest check-in and check-out data
+        function fetchLatestCheckInCheckOut() {
+            const employeeId = getEmployeeId();
+            if (!employeeId) {
+                displayMessage('Employee not logged in.', 'danger');
+                window.location.href = 'employee-login.html';
+                return;
+            }
+
+            fetch('get_latest_checkin_checkout.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ employee_id: employeeId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetch Latest Attendance Response:', data);
+
+                if (data.message) {
+                    console.error(data.message);
+                    displayMessage(data.message, 'danger');
+                } else if (data.latest_attendance) {
+                    checkInTimeCell.textContent = data.latest_attendance.checkin_time || 'N/A';
+                    checkOutTimeCell.textContent = data.latest_attendance.checkout_time || 'N/A';
+                    currentDateCell.textContent = data.latest_attendance.check_date || 'N/A';
+                    displayMessage('Latest attendance data fetched successfully.');
+                } else {
+                    console.error('No latest attendance data found.');
+                    displayMessage('No attendance data found.', 'danger');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching attendance data:', error);
+                displayMessage('Failed to fetch attendance data.', 'danger');
+            });
+        }
+        window.onload = fetchLatestCheckInCheckOut;
+
+        
+       function fetchEmployeeDetails() {
+        const employeeId = getEmployeeId();; 
+        if (!employeeId) {
+            displayMessage('Employee not logged in.', 'danger');
+            window.location.href = 'employee-login.html'; // Redirect if not logged in
+            return;
+        }
+
+        // Fetch employee details based on employee_id
+        fetch('get_employee_details.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ employee_id: employeeId }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('employeeId').textContent = data.details.employee_id;
+                document.getElementById('employeeName').textContent = data.details.name;
+                document.getElementById('employeeDesignation').textContent = data.details.designation;
+                document.getElementById('contactNumber').textContent = data.details.contact_number;
+            } else {
+                displayMessage(data.message || 'Failed to load employee details.', 'danger');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching employee details:', error);
+            displayMessage('Failed to fetch employee details.', 'danger');
+        });
+    }
+    fetchEmployeeDetails();
+
+
+   
+
+
+        // Handle check-in button click
+        checkInBtn.addEventListener('click', function () {
+            const employeeId = getEmployeeId();
+            if (!employeeId) {
+                displayMessage('Employee not logged in.', 'danger');
+                return;
+            }
+
+           const { date, time } = getCurrentDateTime();
+
+            fetch('checkin.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ employee_id: employeeId, check_in_time: time, check_date: date })
+            })
+
+            .then(response => response.json())
+            .then(data => {
+                console.log('Check In Response:', data);
+                if (data.error) {
+                    displayMessage(data.error, 'danger');
+                } else if (data.success) {
+                    displayMessage('Checked in successfully.');
+                    fetchLatestCheckInCheckOut();
+                }else{
+                    displayMessage('Unexpected response from server.', 'danger');
+                }
+            })
+            .catch(error => {
+                console.error('Error during check-in:', error);
+                displayMessage('Failed to check in.', 'danger');
+            });
+        });
+
+    checkOutBtn.addEventListener('click', function () {
+    const employeeId = getEmployeeId();
+    if (!employeeId) {
+        displayMessage('Employee not logged in.', 'danger');
+        return;
+    }
+    const { time } = getCurrentDateTime();
+
+    fetch('checkout.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ employee_id: employeeId, check_out_time: time })
+    })
+    .then(response => response.text()) // Changed to .text() temporarily for debugging
+    .then(text => {
+        try {
+            const data = JSON.parse(text); // Try parsing the response as JSON
+            console.log('Check-Out Response:', data);
+            if (data.error) {
+                displayMessage(data.error, 'danger');
+            } else if (data.success) {
+                displayMessage('Checked out successfully.');
+                fetchLatestCheckInCheckOut(); // Refresh the attendance data
+            } else {
+                displayMessage('Unexpected response from server.', 'danger');
+            }
+        } catch (error) {
+            console.error('Error parsing JSON:', error, 'Raw Response:', text);
+            displayMessage('Unexpected response format from server.', 'danger');
+        }
+    })
+    .catch(error => {
+        console.error('Error during Check-Out:', error);
+        displayMessage('Failed to perform Check-Out.', 'danger');
+    });
+});
+
+
+
+        // Handle create lead button click
+        createLeadBtn.addEventListener('click', function () {
+            window.location.href = 'customer-details.html'; // Redirect to create lead page
+        });
+
+        // Handle change password button click
+        changePasswordBtn.addEventListener('click', function () {
+            window.location.href = 'change-password.html'; // Redirect to change password page
+        });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const employeeId = getEmployeeId();
+        loadExistingImage(employeeId); // Load image if already uploaded
+    });
+
+   
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const employeeId = sessionStorage.getItem('employee_id');
+
+        if (employeeId) {
+            fetch('check_submission.php', { // Your backend check URL
+                method: 'POST',
+                body: JSON.stringify({ employee_id: employeeId }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.submitted) {
+                    // Hide the onboarding process if already submitted
+                    document.getElementById('onboarding-process').style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking submission status:', error);
+            });
+        }
+    });
+
+    </script>
+
+   
+
+</body>
+
+</html>

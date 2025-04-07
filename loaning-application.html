@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourVypar - Customer Details Portal</title>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/customer-details.css">
+    <link rel="icon" href="img/Your.png" type="image/png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
+    <!-- Navbar Start -->
+    <div class="navbar sticky-top">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="img/Your.png" alt="Logo"></a>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="offset-md-3 col-md-6">
+                <h3 style="color:#fb6852" class="mt-3">Your Details</h3>
+                <div class="card mt-4">
+                    <div class="container my-4">
+                        <form id="loanForm" method="POST" action="submit-loan.php" enctype="multipart/form-data">
+                            <input type="hidden" name="employee_id" value="12345">
+                            <div class="mb-3">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter customer name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter email address" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter phone number" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="loanType">Select Your Loan Type:</label>
+                                <select id="loanType" name="loanType" class="form-control" required>
+                                    <option value="" disabled selected>Select Loan Type</option>
+                                    <option value="home">Home Loan</option>
+                                    <option value="gold">Gold Loan</option>
+                                    <option value="education">Educational Loan</option>
+                                    <option value="business">Business Loan</option>
+                                    <option value="agricultural">Agricultural Loan</option>
+                                    <option value="car">Car Loan</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" id="address" name="address" class="form-control" placeholder="Enter address">
+                            </div>
+
+                            <div class="mb-3">
+                                <textarea id="remarks" name="remarks" rows="4" class="form-control" placeholder="Enter any remarks"></textarea>
+                            </div>
+
+                            <div class="offset-md-4 col-md-4">
+                                <button type="submit" style="width: 50%;" class="submit-btn w-100">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
